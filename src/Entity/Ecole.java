@@ -6,14 +6,19 @@ public class Ecole {
     private  int compteur = 0;
 
     //TODO 12:
-    Ecole () {
+    public Ecole () {
         tabEtudiant = new Etudiant[500];
     }
 
+    public Ecole (String nom) {
+        tabEtudiant = new Etudiant[500];
+        this.nom = nom;
+    }
+
     //TODO 14:
-    int rechercherEtudiant (Etudiant e) {
+    public int rechercherEtudiant (Etudiant e) {
         for (int i = 0; i < compteur; i++) {
-            if (tabEtudiant[i] == e) {
+            if (tabEtudiant[i].equals(e)) {
                 return i;
             }
         }
@@ -21,13 +26,15 @@ public class Ecole {
     }
 
     //TODO 15:
-    public void ajouterEtudiant (Etudiant e) {
+    //TODO 21:
+    public void ajouterEtudiant (Etudiant e) throws EtudiantExisteException {
         if (compteur < 500) {
             if (rechercherEtudiant (e) == -1) {
                 tabEtudiant[compteur] = e;
                 compteur++;
             }
-            else System.out.println("Etudiant existe deja.");
+            //else System.out.println("Etudiant existe deja.");
+            else throw new EtudiantExisteException("Etudiant existe deja.");
         }
         else System.out.println("Le tableau est plein");
     }
@@ -58,18 +65,35 @@ public class Ecole {
         return salTotal/nbEtudAlt;
     }
 
-    //TODO 17:
+    //TODO 18:
     @Override
     public String toString () {
-        return "Nom Ecole: " + nom + "Les Etudiants: " ;
+        String s = "Nom Ecole: " + nom + " Les Etudiants: \n " ;
+        for (int i = 0; i < compteur; i++) {
+            s = s + tabEtudiant[i].toString() + "\n";
+        }
+        return s;
     }
 
-
-    //Getters Ans Setters:
-    Ecole (String nom) {
-        tabEtudiant = new Etudiant[500];
-        this.nom = nom;
+    //TODO 19:
+    //TODO 22:
+    public void changerEcole (Etudiant etd, Ecole e) {
+        int indice = rechercherEtudiant(etd);
+        if (indice != -1) {
+            try {
+                e.ajouterEtudiant(etd);
+            } catch (EtudiantExisteException exc){
+                System.out.println(exc.getMessage());
+            }
+            for (int i = indice; i < compteur; i++) {
+                tabEtudiant[i] = tabEtudiant[i+1];
+            }
+            tabEtudiant[compteur] = null;
+            compteur--;
+        }
+        else System.out.println("Cet etudiant n'existe pas");
     }
+
 
     //Getters Ans Setters:
     public void setNom (String nom) {

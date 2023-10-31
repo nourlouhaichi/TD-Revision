@@ -3,16 +3,17 @@ package Entity;
 public class EtudiantAlternance extends Etudiant {
     private int salaire;
 
-    EtudiantAlternance () {
+    public EtudiantAlternance () {
     }
 
     //TODO 9:
-    EtudiantAlternance (int id, String prenom, String nom, double moyenne, int salaire) {
+    public EtudiantAlternance (int id, String prenom, String nom, double moyenne, int salaire) {
         super (id, prenom, nom, moyenne);
         this.salaire = salaire;
     }
 
     //TODO 4:
+    @Override
     public void ajouterUneAbsence () {
         //TODO 10:
         salaire = salaire-50;
@@ -21,11 +22,7 @@ public class EtudiantAlternance extends Etudiant {
     //TODO 11:
     @Override
     public String toString() {
-        return "ID: " + super.getId()
-                + " Prenom: " + super.getPrenom()
-                + " Nom: " + super.getNom()
-                + " Moyenne: " + super.getMoyenne()
-                + "Salaire: " + salaire;
+        return super.toString() + " Salaire: " + salaire;
     }
 
 

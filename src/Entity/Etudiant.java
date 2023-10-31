@@ -5,11 +5,11 @@ public abstract class Etudiant {
     private String prenom,nom;
     private double moyenne;
 
-    Etudiant () {
+    public Etudiant () {
     }
 
     //TODO 1:
-    Etudiant (int id, String prenom, String nom, double moyenne) {
+    public Etudiant (int id, String prenom, String nom, double moyenne) {
         this.id = id;
         this.prenom = prenom;
         this.nom = nom;
